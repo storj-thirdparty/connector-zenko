@@ -62,8 +62,11 @@ $ ./storj-zenko --version
 $ ./storj-zenko store
 ```
 ## Documentation
-For more information on runtime flags, configuration, testing, and diagrams, check out the [Detail]() or jump to:
-* Config Files
-* Run (long version)
-* Testing
-* Flow Diagram
+
+For more information on runtime flags, configuration, testing, and diagrams, check out the [Detail](//github.com/storj-thirdparty/connector-zenko/wiki) or jump to:
+
+
+* [Config Files](//github.com/storj-thirdparty/connector-zenko/wiki/#config-files)
+* [Run (long version)](//github.com/storj-thirdparty/connector-zenko/wiki/#run)
+* [Testing](//github.com/storj-thirdparty/connector-zenko/wiki/#testing)
+* [Flow Diagram](//github.com/storj-thirdparty/connector-zenko/wiki/#flow-diagram)
