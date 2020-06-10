@@ -1,5 +1,6 @@
 # storj-zenko connector (uplink v1.0.5)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b76faa16299a4236ad85baa9f39b7294)](https://app.codacy.com/gh/storj-thirdparty/connector-zenko?utm_source=github.com&utm_medium=referral&utm_content=storj-thirdparty/connector-zenko&utm_campaign=Badge_Grade_Dashboard)
 [![Go Report Card](https://goreportcard.com/badge/github.com/storj-thirdparty/connector-zenko)](https://goreportcard.com/report/github.com/storj-thirdparty/connector-zenko)
 ![Cloud Build](https://storage.googleapis.com/storj-utropic-services-badges/builds/connector-zenko/branches/master.svg)
 
