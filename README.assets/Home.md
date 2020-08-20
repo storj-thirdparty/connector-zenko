@@ -20,7 +20,7 @@ Inside the ```./config``` directory a ```storj_config.json``` file, with Storj n
 * satelliteURL - Storj Satellite URL
 * encryptionPassphrase - Storj Encryption Passphrase.
 * bucket - Name of the bucket to upload data into.
-* uploadPath - Path on Storj Bucket to store data (optional) or "/"
+* uploadPath - Path on Storj Bucket to store data (optional) or "" or "/" (mandatory)
 * serializedAccess - Serialized access shared while uploading data used to access bucket without API Key
 * allowDownload - Set true to create serialized access with restricted download
 * allowUpload - Set true to create serialized access with restricted upload
@@ -35,29 +35,29 @@ Zenko files are iterated through and streamed in 32KB chunks to the Storj networ
 The following flags can be used with the ```store``` command:
 
 * ```accesskey``` - Connects to the Storj network using a serialized access key instead of an API key, satellite url and encryption passphrase .
-* ```shared``` - Generates a restricted shareable serialized access with the restrictions specified in the Storj configuration file.
+* ```share``` - Generates a restricted shareable serialized access with the restrictions specified in the Storj configuration file.
 
 Once you have built the project you can run the following:
 
 ##### Get help
 ```
-$ ./storj-zenko --help
+$ ./connector-zenko --help
 ```
 ##### Check version
 ```
-$ ./storj-zenko version
+$ ./connector-zenko version
 ```
 ##### Create backup from Zenko and upload them to Storj
 ```
-$ ./storj-zenko store --zenko <path_to_zenko_config_file> --storj <path_to_storj_config_file>
+$ ./connector-zenko store --zenko <path_to_zenko_config_file> --storj <path_to_storj_config_file>
 ```
 ##### Create backup files from Zenko and upload them to Storj bucket using Access Key
 ```
-$ ./storj-zenko store --accesskey
+$ ./connector-zenko store --accesskey
 ```
 ##### Create backup files from Zenko and upload them to Storj and generate a Shareable Access Key based on restrictions in ```storj_config.json```.
 ```
-$ ./storj-zenko store --share
+$ ./connector-zenko store --share
 ```
 		
 ## Testing
