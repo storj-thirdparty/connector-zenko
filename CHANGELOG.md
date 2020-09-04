@@ -1,8 +1,8 @@
-# Connector-Zenko Changelog
+# Storj-Zenko Changelog
 
-## [1.0.5] - 17-08-2020
+## [1.0.5] - 01-09-2020
 ### Changelog:
-* Resolved upload path issue.
+* Added test file for CI-CD pipeline.
 
 ## [1.0.5] - 22-05-2020
 ### Changelog:

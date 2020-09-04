@@ -28,6 +28,8 @@ func init() {
 
 func zenkoStore(cmd *cobra.Command, args []string) {
 
+	testFlag := false
+
 	// Process arguments from the CLI.
 	zenkoConfigfilePath, _ := cmd.Flags().GetString("zenko")
 	fullFileNameStorj, _ := cmd.Flags().GetString("storj")
@@ -41,7 +43,7 @@ func zenkoStore(cmd *cobra.Command, args []string) {
 	storjConfig := LoadStorjConfiguration(fullFileNameStorj)
 
 	// Connect to storj network using the specified credentials.
-	access, project := ConnectToStorj(fullFileNameStorj, storjConfig, useAccessKey)
+	access, project := ConnectToStorj(storjConfig, useAccessKey)
 
 	// Establish connection with Zenko and get io.Reader implementor.
 	zenkoReader := ConnectToZenko(configZenko)
@@ -52,7 +54,7 @@ func zenkoStore(cmd *cobra.Command, args []string) {
 	fmt.Printf("\nInitiating back-up.\n")
 	// Fetch all backup files from Zenko instance and simultaneously store them into desired Storj bucket.
 	for i := 0; i < len(uploadPathNames); i++ {
-		UploadData(project, storjConfig, uploadPathNames[i], zenkoObjectReaders[i])
+		UploadData(project, storjConfig, uploadPathNames[i], zenkoObjectReaders[i], nil, testFlag)
 	}
 	fmt.Printf("\nBack-up complete.\n\n")
 

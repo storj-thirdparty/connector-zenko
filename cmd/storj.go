@@ -118,7 +118,7 @@ func ShareAccess(access *uplink.Access, configStorj ConfigStorj) {
 // ConnectToStorj reads Storj configuration from given file
 // and connects to the desired Storj network.
 // It then reads data property from an external file.
-func ConnectToStorj(fullFileName string, configStorj ConfigStorj, accesskey bool) (*uplink.Access, *uplink.Project) {
+func ConnectToStorj(configStorj ConfigStorj, accesskey bool) (*uplink.Access, *uplink.Project) {
 
 	var access *uplink.Access
 	var cfg uplink.Config
@@ -162,7 +162,7 @@ func ConnectToStorj(fullFileName string, configStorj ConfigStorj, accesskey bool
 }
 
 // UploadData uploads the backup file to storj network.
-func UploadData(project *uplink.Project, configStorj ConfigStorj, uploadPathName string, objectReader *minio.Object) {
+func UploadData(project *uplink.Project, configStorj ConfigStorj, uploadPathName string, backupObjectReader *minio.Object, testObjectReader io.Reader, testFlag bool) {
 
 	ctx := context.Background()
 
@@ -173,34 +173,49 @@ func UploadData(project *uplink.Project, configStorj ConfigStorj, uploadPathName
 	}
 	fmt.Printf("\nUploading %s to %s.", configStorj.UploadPath+uploadPathName, configStorj.Bucket)
 
-	var lastIndex int64
-	var numOfBytesRead int
-	lastIndex = 0
-	var buf = make([]byte, 32768)
+	if !testFlag {
 
-	var err1 error
-	// Loop to read the backup file in chunks and append the contents to the upload object.
-	for err1 != io.EOF {
-		sectionReader := io.NewSectionReader(objectReader, lastIndex, int64(cap(buf)))
-		numOfBytesRead, err1 = sectionReader.ReadAt(buf, 0)
-		if numOfBytesRead > 0 {
-			reader := bytes.NewBuffer(buf[0:numOfBytesRead])
-			// Try to upload data on storj n number of times
-			retry := 0
-			for retry < MAXRETRY {
-				_, err = io.Copy(upload, reader)
-				if err != nil {
-					retry++
-				} else {
-					break
+		var lastIndex int64
+		var numOfBytesRead int
+		lastIndex = 0
+		var buf = make([]byte, 32768)
+
+		var err1 error
+		// Loop to read the backup file in chunks and append the contents to the upload object.
+		for err1 != io.EOF {
+			sectionReader := io.NewSectionReader(backupObjectReader, lastIndex, int64(cap(buf)))
+			numOfBytesRead, err1 = sectionReader.ReadAt(buf, 0)
+			if numOfBytesRead > 0 {
+				reader := bytes.NewBuffer(buf[0:numOfBytesRead])
+				// Try to upload data on storj n number of times
+				retry := 0
+				for retry < MAXRETRY {
+					_, err = io.Copy(upload, reader)
+					if err != nil {
+						retry++
+					} else {
+						break
+					}
+				}
+				if retry == MAXRETRY {
+					log.Fatal("Could not upload data to storj: ", err)
 				}
 			}
-			if retry == MAXRETRY {
-				log.Fatal("Could not upload data to storj: ", err)
-			}
+
+			lastIndex = lastIndex + int64(numOfBytesRead)
 		}
 
-		lastIndex = lastIndex + int64(numOfBytesRead)
+		// Close file handle after reading from it.
+		if err = backupObjectReader.Close(); err != nil {
+			log.Fatal(err)
+		}
+
+	} else {
+		_, err = io.Copy(upload, testObjectReader)
+		if err != nil {
+			abortErr := upload.Abort()
+			log.Fatal("Could not upload data to storj: ", err, abortErr)
+		}
 	}
 
 	// Commit the upload after copying the complete content of the backup file to upload object.
@@ -210,8 +225,4 @@ func UploadData(project *uplink.Project, configStorj ConfigStorj, uploadPathName
 		log.Fatal("Could not commit object upload : ", err)
 	}
 
-	// Close file handle after reading from it.
-	if err = objectReader.Close(); err != nil {
-		log.Fatal(err)
-	}
 }
