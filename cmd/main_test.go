@@ -13,8 +13,8 @@ import (
 
 func TestZenkoStore(t *testing.T) {
 
-	test_flag := true
-	
+	testFlag := true
+
 	storjConfig := cmd.LoadStorjConfiguration("../config/storj_config_test.json")
 	_, project := cmd.ConnectToStorj(storjConfig, false)
 
@@ -22,9 +22,9 @@ func TestZenkoStore(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	fmt.Printf("Initiating back-up.\n")
-	cmd.UploadData(project, storjConfig, "testFile.txt", nil, fileReader, test_flag)
+	cmd.UploadData(project, storjConfig, "testFile.txt", nil, fileReader, testFlag)
 	fmt.Printf("Back-up complete.\n\n")
 
 	fmt.Printf("\nDeleting the test back-up.\n")

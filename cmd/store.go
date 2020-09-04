@@ -28,7 +28,7 @@ func init() {
 
 func zenkoStore(cmd *cobra.Command, args []string) {
 
-	test_flag := false
+	testFlag := false
 
 	// Process arguments from the CLI.
 	zenkoConfigfilePath, _ := cmd.Flags().GetString("zenko")
@@ -54,7 +54,7 @@ func zenkoStore(cmd *cobra.Command, args []string) {
 	fmt.Printf("\nInitiating back-up.\n")
 	// Fetch all backup files from Zenko instance and simultaneously store them into desired Storj bucket.
 	for i := 0; i < len(uploadPathNames); i++ {
-		UploadData(project, storjConfig, uploadPathNames[i], zenkoObjectReaders[i], nil, test_flag)
+		UploadData(project, storjConfig, uploadPathNames[i], zenkoObjectReaders[i], nil, testFlag)
 	}
 	fmt.Printf("\nBack-up complete.\n\n")
 
