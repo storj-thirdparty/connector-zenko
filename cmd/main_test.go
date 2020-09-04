@@ -15,7 +15,7 @@ func TestZenkoStore(t *testing.T) {
 
 	test_flag := true
 	
-	storjConfig := cmd.LoadStorjConfiguration("../config/storj_config.json")
+	storjConfig := cmd.LoadStorjConfiguration("../config/storj_config_test.json")
 	_, project := cmd.ConnectToStorj(storjConfig, false)
 
 	fileReader, err := os.Open("../testFile.txt")
