@@ -2,7 +2,7 @@
 
 ## [1.0.5] - 17-09-2020
 ### Changelog:
-*Add video section in ReadME.md
+* Add video section in ReadME.md
 
 ## [1.0.5] - 01-09-2020
 ### Changelog:
