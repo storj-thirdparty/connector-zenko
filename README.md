@@ -81,9 +81,15 @@ $ ./connector-zenko store
 
 ## Documentation
 
-For more information on runtime flags, configuration, testing, and diagrams, check out the [Detail](//github.com/storj-thirdparty/connector-zenko/wiki) or jump to:
-
-* [Config Files](//github.com/storj-thirdparty/connector-zenko/wiki/#config-files)
-* [Run (long version)](//github.com/storj-thirdparty/connector-zenko/wiki/#run)
-* [Testing](//github.com/storj-thirdparty/connector-zenko/wiki/#testing)
-* [Flow Diagram](//github.com/storj-thirdparty/connector-zenko/wiki/#flow-diagram)
+* Access documentation on local system :
+  1) Install [docsify](https://www.npmjs.com/package/docsify-cli)
+  2) Run the following command at the root directory of the cloned project.
+  ```
+  $ docsify serve docs
+  ```
+* For more information on runtime flags, configuration, testing, and diagrams, check out the [Detail](//github.com/storj-thirdparty/connector-zenko/wiki) or jump to:
+  * [Config Files](//github.com/storj-thirdparty/connector-zenko/wiki/#config-files)
+  * [Run (long version)](//github.com/storj-thirdparty/connector-zenko/wiki/#run)
+  * [Testing](//github.com/storj-thirdparty/connector-zenko/wiki/#testing)
+  * [Flow Diagram](//github.com/storj-thirdparty/connector-zenko/wiki/#flow-diagram)
+  * [Video](//github.com/storj-thirdparty/connector-zenko/#/videos)
